@@ -113,3 +113,26 @@
     border-radius: 100px;
     margin-bottom: 5px;
 }
+
+.banner_search {
+    position: absolute;
+    right: 15px;
+    width: 250px;
+    display: none;
+}
+
+.banner_search input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 9999px;
+    padding-left: 20px;
+
+}
+
+.search {
+    position: relative;
+}
+
+.search:hover .banner_search {
+    display: block;
+}

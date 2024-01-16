@@ -8,7 +8,6 @@ import './ModelAddtoCart.css';
 function ModelAddtoCart({ showPopup, handleClose, product_id }) {
     const [product, setProduct] = useState({});
     const [quantity, setQuantity] = useState(1);
-    const { id } = useParams();
     const handleQuantity = (e) => {
         setQuantity(e.target.value)
     };

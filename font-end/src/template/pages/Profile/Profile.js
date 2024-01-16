@@ -4,19 +4,32 @@ import Tabs from 'react-bootstrap/Tabs';
 import ProfileService from '../../../service/ProfileService';
 import './Profile.css';
 import avt from '../../../image/unnamed.jpg';
+import FeedbackService from '../../../service/FeedbackService';
 function Profile() {
     const [user, setuser] = useState([]);
+    const [feedback, setfeedback] = useState([]);
 
     useEffect(() => {
         ProfileService.GetUser()
             .then((data) => {
                 setuser(data);
-                console.log("oke", data);
+                console.log("profile", data);
             }
             ).catch((error) => {
                 console.log(error);
             })
     }, []);
+    useEffect(() => {
+        FeedbackService.getAllFeedBack()
+            .then((data) => {
+                setfeedback(data);
+                console.log("feedback", data);
+            })
+            .catch((error) => {
+                console.error("Error fetching feedback:", error);
+            });
+    }, []);
+
 
     return (
         <>
@@ -26,7 +39,7 @@ function Profile() {
                     id="uncontrolled-tab-example"
                     className="tab_totle"
                 >
-                    <Tab eventKey="profile" title="Profile" className='tab_item'>
+                    <Tab eventKey="profile" title="Thông tin cá nhân" className='tab_item'>
                         <div className='profile_item'>
                             <div className='row m-4'>
                                 <div className='col-lg-4'>
@@ -66,24 +79,24 @@ function Profile() {
                                             </div>
                                         </>
                                     ))}
-                                </div>
+                                </div >
                             </div>
                         </div>
-                    </Tab>
-                    <Tab eventKey="contact" title="Mật khẩu và bảo mật" className='tab_item'>
-                        Tab content for Contact
                     </Tab>
                     <Tab eventKey="nofication" title="Thông báo" className='tab_item'>
                         Tab content for nofication
                     </Tab>
-                    <Tab eventKey="nofication" title="Tin nhắn" className='tab_item'>
-                        Tab content for nofication
+                    <Tab eventKey="product" title="Sản phẩm đã mua" className='tab_item'>
                     </Tab>
-                    <Tab eventKey="nofication" title="Sản phẩm đã mua" className='tab_item'>
-                        Tab content for nofication
+                    <Tab eventKey="feedback" title="Đánh giá và phản hồi" className='tab_item'>
+                        {feedback && feedback.map((item) => (
+                            <div key={item.feedback_id}>
+                                <h1>{item.description}</h1>
+                            </div>
+                        ))}
                     </Tab>
                 </Tabs>
-            </div>
+            </div >
 
 
         </>

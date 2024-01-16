@@ -34,10 +34,7 @@ function ForgotPassword() {
             .catch((error) => {
                 console.log(error);
                 JSAlert.alert("Email không hợp lệ", "Thất bại", failIcon).dismissIn(2500);
-
             }).finally(() => {
-
-
             })
     }
 

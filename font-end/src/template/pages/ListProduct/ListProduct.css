@@ -67,3 +67,26 @@
     background-color: #91ad41;
     color: #fff;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    background-color: #91ad41;
+    color: white;
+    border: 1px solid #91ad41;
+    padding: 8px 16px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.pagination button:hover {
+    background-color: #45a049;
+}
+
+.pagination button.active {
+    background-color: #45a049;
+}

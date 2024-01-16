@@ -43,7 +43,7 @@ function Header() {
                                         <a className="nav-link" href="/shop">Sản Phẩm</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link " href="#">Liên hệ</a>
+                                        <a className="nav-link " href="/contact">Liên hệ</a>
                                     </li>
                                 </ul>
                             </div>
@@ -51,7 +51,12 @@ function Header() {
                     </div>
                     <div className="icon_menu">
                         <div className="search">
-                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <div>
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </div>
+                            <div className="banner_search">
+                                <input placeholder="search"></input>
+                            </div>
                         </div>
                         <div>
                             {accessToken ? (

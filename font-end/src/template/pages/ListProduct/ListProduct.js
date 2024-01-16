@@ -9,15 +9,18 @@ function ListProduct() {
     const [products, setProducts] = useState([]);
     const { id } = useParams();
     const [product, setProduct] = useState({});
+    const [currentPage, setCurrentPage] = useState(1);
+    const productsPerPage = 8;
+
     useEffect(() => {
         ProductService.getAllProduct()
             .then((data) => {
-                console.log(data);
                 setProducts(data);
             })
             .catch((error) => {
                 console.log(error);
             });
+
         CategoryService.getAllCategory()
             .then((data) => {
                 setCategories(data);
@@ -26,16 +29,27 @@ function ListProduct() {
                 console.log(error);
             });
     }, [id]);
+
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
     const [showPopup, setShowPopup] = useState(false);
     const [productId, setProduct_id] = useState();
+
     const openModal = (productId) => {
-        console.log(productId);
-        setShowPopup(true, productId);
-        setProduct_id(productId)
+        setShowPopup(true);
+        setProduct_id(productId);
     }
+
     const closeModal = () => {
         setShowPopup(false);
     }
+
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    }
+
     return (
         <>
             <div className="list">
@@ -63,7 +77,7 @@ function ListProduct() {
                         </div>
                         <div className="col-lg-10">
                             <div className='row'>
-                                {products.map((product) => (
+                                {currentProducts.map((product) => (
                                     <div className='col-lg-3' key={product.product_id}>
                                         <div className="card m-2">
                                             <Link to={`/detail/${product.product_id}`} key={product.product_id}>
@@ -89,6 +103,13 @@ function ListProduct() {
                                         </div>
                                         <ModelAddtoCart showPopup={showPopup} handleClose={closeModal} product_id={productId} />
                                     </div>
+                                ))}
+                            </div>
+                            <div className='pagination'>
+                                {Array.from({ length: Math.ceil(products.length / productsPerPage) }).map((_, index) => (
+                                    <button key={index + 1} onClick={() => paginate(index + 1)}>
+                                        {index + 1}
+                                    </button>
                                 ))}
                             </div>
                         </div>
